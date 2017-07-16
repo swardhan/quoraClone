@@ -4,7 +4,12 @@ Rails.application.routes.draw do
   root to: "questions#index"
 
   resources :questions do
-    resources :answers
+    resources :answers do
+      member do
+        put "upvote", to: "answers#upvote"
+        put "downvote", to: "answers#downvote"
+      end
+    end
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

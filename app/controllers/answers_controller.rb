@@ -1,5 +1,5 @@
 class AnswersController < ApplicationController
-  before_action :set_answer, only: [:show, :edit, :update, :destroy]
+  before_action :set_answer, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   before_action :authenticate_user!
 
 
@@ -32,6 +32,28 @@ class AnswersController < ApplicationController
 
   # DELETE /answers/1
   # DELETE /answers/1.json
+  def upvote
+    if current_user.voted_up_on? @answer
+      @answer.unvote_by current_user
+      redirect_to @answer.question
+    else
+      @answer.upvote_by current_user
+      redirect_to @answer.question
+    end
+  end
+
+  def downvote
+      # @answer.downvote_by current_user
+      # redirect_to @answer.question
+    if current_user.voted_down_on? @answer
+      @answer.downvote_by current_user
+      redirect_to @answer.question
+    else
+      @answer.downvote_by current_user
+      redirect_to @answer.question
+    end
+  end
+
   def destroy
     @question = @answer.question
     @answer.destroy
