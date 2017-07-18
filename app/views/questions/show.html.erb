@@ -14,23 +14,7 @@
 
 <%= render 'answers/form' %>
 <ul>
-<% @answers.each do |answer| %>
-  <% @answer = answer %>
-  <% if @answer.content? %>
-    <li>
-      <%= @answer.content %>,
-        <% if user_signed_in? %>
-          <%= link_to "Upvote" , upvote_question_answer_path(@question, @answer), method: :put %> |
-          <%= pluralize(@answer.get_upvotes.size, "Upvote") %> |
-          <%= link_to "Downvote" , downvote_question_answer_path(@question, @answer), method: :put %> |
-          <%= pluralize(@answer.get_dislikes.size, "Downvote") %>
-          <% if @answer.user == current_user %>
-          <%= link_to 'Destroy', question_answer_path(@question, @answer), method: :delete, data: { confirm: 'Are you sure?' } %>
-        <% end %>
-      <% end %>
-    </li>
-  <% end %>
-<% end %>
+<%= render @answers %>
 </ul>
 
 <%= link_to 'Edit', edit_question_path(@question) %> |
