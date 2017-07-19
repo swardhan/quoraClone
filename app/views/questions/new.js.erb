@@ -1,0 +1,11 @@
+<% if user_signed_in? %>
+  $('.modal_outer').css('display','block');
+  var element = $('.modal_inner');
+  element.html('<%= j render "form" %>');
+  element.css('border-radius', '10px');
+  element.children().first().addClass('new');
+  $('input#question_description').val('');
+  $('input#question_title').val('');
+<% else %>
+  window.location.href = "http://localhost:3000/users/sign_in";
+<% end %>

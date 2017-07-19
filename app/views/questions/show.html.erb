@@ -13,11 +13,13 @@
 </p>
 
 <%= render 'answers/form' %>
-<ul>
-<%= render @answers %>
+<ul id="answers">
+<%= render @answers.order(:cached_votes_up) %>
 </ul>
-
-<%= link_to 'Edit', edit_question_path(@question) %> |
-<%= link_to 'Destroy', @question, method: :delete, data: { confirm: 'Are you sure?' } %>
-
+<% if user_signed_in? %>
+  <% if current_user == @question.user %>
+    <%= link_to 'Edit', edit_question_path(@question) %> |
+    <%= link_to 'Destroy', @question, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+<% end %>
 <%= link_to 'Back', questions_path %>

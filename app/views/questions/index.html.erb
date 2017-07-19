@@ -2,28 +2,35 @@
 
 <h1>Listing Questions</h1>
 
-<table>
-  <thead>
+<table class="questions">
     <tr>
       <th>Title</th>
       <th>Description</th>
+      <th>Users</th>
+      <th>Description</th>
       <th colspan="3"></th>
     </tr>
-  </thead>
 
-  <tbody>
     <% @questions.each do |question| %>
       <tr>
         <td><%= question.title %></td>
         <td><%= question.description %></td>
+        <td><%= question.user.email %></td>
         <td><%= link_to 'Show', question %></td>
+        <% if current_user == question.user %>
         <td><%= link_to 'Edit', edit_question_path(question) %></td>
         <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
-  </tbody>
 </table>
 
 <br>
 
-<%= link_to 'New Question', new_question_path %>
+<%= link_to 'New Question', new_question_path, remote: true,id: "new_question_path" %>
+
+<div class="modal_outer">
+  <div class="modal_inner">
+
+  </div>
+</div>

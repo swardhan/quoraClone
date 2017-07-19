@@ -1,0 +1,1 @@
+$('#upvotes_<%= @answer.id %>').text('<%= pluralize(@answer.get_upvotes.size, "Upvote") %>');

@@ -36,10 +36,14 @@ class AnswersController < ApplicationController
   def upvote
     if current_user.voted_up_on? @answer
       @answer.unvote_by current_user
-      redirect_to @answer.question
+      respond_to do |format|
+        format.js {}
+      end
     else
       @answer.upvote_by current_user
-      redirect_to @answer.question
+      respond_to do |format|
+        format.js {}
+      end
     end
   end
 
@@ -47,11 +51,15 @@ class AnswersController < ApplicationController
       # @answer.downvote_by current_user
       # redirect_to @answer.question
     if current_user.voted_down_on? @answer
-      @answer.downvote_by current_user
-      redirect_to @answer.question
+      @answer.undisliked_by current_user
+      respond_to do |format|
+        format.js {}
+      end
     else
       @answer.downvote_by current_user
-      redirect_to @answer.question
+      respond_to do |format|
+        format.js {}
+      end
     end
   end
 

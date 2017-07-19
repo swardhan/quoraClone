@@ -1,0 +1,38 @@
+// Place all the styles related to the questions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.modal_outer {
+  background-color: rgba(0,0,0,0.5);
+  height: 100%;
+  width: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: none;
+}
+.modal_inner {
+  background-color: pink;
+  width: 500px;
+  height: 300px;
+  padding: 25px;
+  margin: 10% auto;
+  border: 10px solid rgba(0,0,0,0.5);
+}
+
+.new {
+  display: flex;
+  flex-direction: column;
+  #question_title {
+    box-sizing: border-box;
+    width: 100%;
+    flex: 1;
+  }
+  #question_description {
+    box-sizing: border-box;
+    width: 100%;
+    height: 180px;
+    flex: 3;
+  }
+}

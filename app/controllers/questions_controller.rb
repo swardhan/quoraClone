@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :new]
   # GET /questions
   # GET /questions.json
   def index
@@ -10,13 +10,16 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
-    @answers = @question.answers
+    @answers = @question.answers.order(cached_votes_up: :desc)
     @answer = Answer.new(:question=>@question)
   end
 
   # GET /questions/new
   def new
     @question = Question.new(:user=>current_user)
+    respond_to do |format|
+        format.js {}
+    end
   end
 
   # GET /questions/1/edit
@@ -35,6 +38,7 @@ class QuestionsController < ApplicationController
       else
         format.html { render :new }
         format.json { render json: @question.errors, status: :unprocessable_entity }
+        format.js { render json: @question.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -65,6 +69,7 @@ class QuestionsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+
     def set_question
       @question = Question.find(params[:id])
     end
